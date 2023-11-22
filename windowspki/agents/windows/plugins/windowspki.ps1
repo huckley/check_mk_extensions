@@ -5,7 +5,7 @@ $UnixEpoch = (Get-Date -Date "01/01/1970") ;
 $start = (Get-Date).AddDays(-60)
 
 foreach ($_ in Get-IssuedRequest -CertificationAuthority $ca_hostname -Filter "NotAfter -ge $start") {
-  If ($_.CommonName) {$subject = $_.CommonName}
+  If ($_.CommonName) {$subject = $_.CommonName.Replace("`n",",")}
   Else {$subject = $_.SerialNumber}
 
   if ($_.CertificateTemplateOid.FriendlyName -notlike "*IEEE802-1x Client Authentication*" -And
