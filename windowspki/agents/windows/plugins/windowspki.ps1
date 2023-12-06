@@ -10,7 +10,8 @@ foreach ($_ in Get-IssuedRequest -CertificationAuthority $ca_hostname -Filter "N
 
   if ($_.CertificateTemplateOid.FriendlyName -notlike "*IEEE802-1x Client Authentication*" -And
     $_.CertificateTemplateOid.Value -ne "Machine" -And
-    $_.CertificateTemplateOid.FriendlyName -ne "SCCM Client Certicate"
+    $_.CertificateTemplateOid.FriendlyName -ne "SCCM Client Certicate"-And
+    $_.CertificateTemplateOid.FriendlyName -notlike "*IEEE802-1x Workstation*"
   ){
     $data = [ordered]@{
       starts = (New-TimeSpan -Start $UnixEpoch -End $_.NotBefore).TotalSeconds ;
